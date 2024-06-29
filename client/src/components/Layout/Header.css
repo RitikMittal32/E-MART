@@ -1,0 +1,181 @@
+
+.header-bar{
+          background-color: #0071dc; 
+         
+}
+
+.first-nav{
+          display: flex;
+          width: 90%;
+          margin: auto;
+          justify-content: space-between;
+          padding: 10px 0px;
+}
+
+.search{
+         display: flex;
+         align-items: center;
+         justify-content: center;
+}
+
+.first-right{
+          display: flex;
+          gap: 40px;
+}
+
+.logo-title{
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+}
+
+.single-line{
+          width: 100%;
+          border: 1px solid white;
+}
+
+.first-right ul{
+          display: flex;
+          gap: 20px;
+          list-style-type: none;
+          align-items: center;
+          justify-content: center;
+}
+
+.first-right ul li{
+          padding: 5px 20px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+}
+
+.first-right ul li:hover{
+          background-color: darkblue;
+          border:none;
+          border-radius: 26px;
+          padding: 5px 20px;
+}
+
+
+.item{
+          font-weight: 600;
+          font-size: 18px;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+
+}
+
+.item p{
+
+          font-weight: 600;
+          font-size: 18px;
+          color: white;
+          margin-top: 10px;
+
+}
+
+
+
+
+.second-nav{
+          width: 100%;
+
+}
+
+.second-nav ul{
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+          align-self: center;
+          padding: 10px 0px;
+          list-style: none;
+}
+
+.second-nav ul li{
+          
+}
+
+.navbar{
+          
+}
+
+.user{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 18px;
+          color: white;
+          gap: 10px;
+          padding: 5px 10px;
+          border-radius: 26px;
+          border: 2px solid white;
+}
+
+
+.nav{
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+         
+}
+
+.nav ul{
+          list-style-type: none;
+}
+
+.fright{
+          display: flex;
+          flex-direction: column; 
+          gap: 10px; 
+}
+
+.change{
+         height: 450px !important;
+}
+
+
+
+.fright ul{
+          list-style-type: none;
+}
+
+.s{
+          display: flex;
+          justify-content: center;
+          align-self: center;
+          
+}
+
+.hamburgur{
+          width:50px;
+          height:50px;
+          flex-direction: column;
+         display: flex;
+          gap: 3px;
+          margin: 10px;
+          
+}
+
+
+
+.hamburgur span{
+          background-color: blue;
+          width: 100%;
+          height:15%;
+          border-radius: 12px;
+
+          
+}
+
+.h{
+          background-color: #0071dc;  
+          height: 50px;  
+          overflow: hidden;   
+          transition: all 0.6s ease-in-out;
+}

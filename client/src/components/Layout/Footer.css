@@ -1,0 +1,36 @@
+.footer{
+         background:saddlebrown;
+         
+}
+
+.total{
+          width: 80%;
+          margin: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          
+}
+
+.categories{
+          display: flex;
+          flex-direction: column;
+}
+
+
+.main-cat{
+          display: flex;
+          gap: 20px;
+}
+.main{
+          border-bottom: 1px solid white;
+          text-align: center;
+}
+
+@media screen and (max-width:500px){
+          
+          .total{
+                    display: flex;
+                    flex-direction: column;
+          }
+}
