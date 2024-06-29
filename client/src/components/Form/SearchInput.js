@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearch } from "../../context/search";
-import axios from "axios";
+import axios from "../../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import './SearchInput.css';
 import { CiSearch } from "react-icons/ci";
