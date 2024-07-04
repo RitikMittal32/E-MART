@@ -7,7 +7,7 @@ const Footer = () => {
     <div className="footer">
       <div className="total">
       <div className="all-category">
-        <p className='text-center'>Home</p>
+      <p className='text-center'><Link to="/">Home</Link></p>
         <div className="categories">
           <p className="main">Categories</p>
           <div className="main-cat">
@@ -21,9 +21,9 @@ const Footer = () => {
       
       <div className="Other">
       <p className="text-center mt-3">
-        {/* <Link to="/about">About</Link>|<Link to="/contact">Contact</Link>| */}
-        {/* <Link to="/policy">Privacy Policy</Link> */}
-        About | Contact | PrivacyPolicy
+        <Link to="/about">About</Link>|<Link to="/contact">Contact</Link>|
+        <Link to="/policy">Privacy Policy</Link>
+        {/* About | Contact | PrivacyPolicy */}
       </p>
       </div>
       </div>
