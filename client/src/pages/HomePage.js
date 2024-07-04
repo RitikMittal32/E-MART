@@ -119,6 +119,30 @@ const HomePage = () => {
     }
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
+
+  useEffect(() => {
+    if (autoPlay) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderImage.length);
+      }, 3000); // Change slide every 3 seconds
+      return () => clearInterval(interval);
+    }
+  }, [autoPlay, sliderImage.length]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderImage.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + sliderImage.length) % sliderImage.length);
+  };
+
+  const setSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
 
   return (
     <Layout title={"ALL Products - Best offers "}>
@@ -132,19 +156,35 @@ const HomePage = () => {
       /> */}
       {/* banner image */}
       <div className="ba">
-        <div className="banner-imgs">
-        {sliderImage.map((item,index) => {
-          return( 
-            <div style={{ display: index === currentPageIndex ? 'block' : 'none' }}>
+      <div className="banner-imgs">
+      {sliderImage.map((item, index) => (
+        <div
+          key={index}
+          style={{ display: index === currentIndex ? 'block' : 'none' }}
+        >
           <img
-          src={`${item.img}`}
-          className="banner-img"
-          alt="bannerimg"
-          
+            src={`${item.img}`}
+            className="banner-img"
+            alt="bannerimg"
           />
-          </div>
-        )})}
         </div>
+      ))}
+
+      <div className="slider-controls">
+        <button className="control-left" onClick={prevSlide}>&#10094;</button>
+        <button className="control-right" onClick={nextSlide}>&#10095;</button>
+      </div>
+
+      <div className="dots-container">
+        {sliderImage.map((_, index) => (
+          <span
+            key={index}
+            className={`dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setSlide(index)}
+          ></span>
+        ))}
+      </div>
+    </div>
         <div>
           <div className="new-side">
             <img src="./images/eCommerce-Development.svg"  alt="neew"/>
@@ -197,7 +237,7 @@ const HomePage = () => {
           </div>
         <div className="div">
         <div className="products-details">
-          <h1 className="text-center mt-0">PRODUCTS</h1>
+          <h1 className="text-center mt-0 text-base">PRODUCTS</h1>
           <div className="d-flex flex-wrap product">
             {products?.map((p) => (
               <div className="card" key={p._id}>
@@ -207,7 +247,7 @@ const HomePage = () => {
                     >
                 <div className="main-card">
                 <img
-                  src={`/api/v1/product/product-photo/${p._id}`}
+                  src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                 />
@@ -277,7 +317,7 @@ const HomePage = () => {
         {Icons.map((item) => {
           return( 
             <div className="icons">
-              <img src={`${item.imgs}`} alt="logo" style={{width : "110px" , height : "100%"}}/>
+              <img src={`${item.imgs}`} alt="logo" />
             </div>
         )})}
       </div>

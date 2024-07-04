@@ -42,7 +42,7 @@ const ProductDetails = () => {
       <div className="row container product-details">
         <div className="col-md-6 primage">
           <img
-            src={`/api/v1/product/product-photo/${product._id}`}
+            src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${product._id}`}
             className="card-img-top"
             alt={product.name}
 
