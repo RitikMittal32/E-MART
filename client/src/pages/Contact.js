@@ -9,7 +9,7 @@ const Contact = () => {
           <img
             src="/contactus.svg"
             alt="contactus"
-            style={{ width: "60%" }}
+            style={{ width: "260px" }}
           />
         </div>
         <div className="col-md-4">

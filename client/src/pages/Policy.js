@@ -9,13 +9,10 @@ const Policy = () => {
           <img
             src="/privacy.svg"
             alt="privacy"
-            style={{ width: "60%" }}
+            style={{ width: "260px" }}
           />
         </div>
         <div className="col-md-4">
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
           <p>add privacy policy</p>
           <p>add privacy policy</p>
           <p>add privacy policy</p>

@@ -305,3 +305,25 @@ filters
 /* .homepage{
   margin-top: 170px;
 } */
+
+@media (max-width: 800px) {
+  .banner-imgs{
+    visibility :hidden;
+    width: 0;
+  } 
+}
+
+@media (max-width: 500px){
+  .home-page{
+     display: flex;
+     flex-direction: column;
+  }
+  .filters-home{
+    width: 100%;
+  }
+
+  .new-side{
+    width: 100%;
+  }
+
+}

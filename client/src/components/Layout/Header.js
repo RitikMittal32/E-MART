@@ -164,6 +164,16 @@ const Header = () => {
             <div className="fright">
             <div className="s"><SearchInput /></div>
             <ul>
+            <li  onClick={() => handleClick()}>
+                <Link to="/cart" className='item'>
+                  <Badge count={cart?.length} showZero offset={[10, -5]}>
+                  <p>🛒 Cart</p>  
+                  </Badge>
+                </Link>
+              </li>
+              <div className="user"  onClick={() => handleClick()}>
+              <FaRegUserCircle /> {auth?.user?.name}
+              </div>
             {!auth?.user ? (
                 <>
                   <li  onClick={() => handleClick()}>
@@ -204,16 +214,6 @@ const Header = () => {
                   
                 </>
               )}
-              <li  onClick={() => handleClick()}>
-                <Link to="/cart" className='item'>
-                  <Badge count={cart?.length} showZero offset={[10, -5]}>
-                  <p>🛒 Cart</p>  
-                  </Badge>
-                </Link>
-              </li>
-              <div className="user"  onClick={() => handleClick()}>
-              <FaRegUserCircle /> {auth?.user?.name}
-              </div>
             </ul>
             </div>
           </div>

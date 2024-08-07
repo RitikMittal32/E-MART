@@ -129,6 +129,10 @@
           list-style-type: none;
 }
 
+.nav ul li{
+          margin-top: 5px;
+}
+
 .fright{
           display: flex;
           flex-direction: column; 
