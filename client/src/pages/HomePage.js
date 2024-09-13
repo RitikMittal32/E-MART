@@ -10,6 +10,8 @@ import { AiOutlineReload } from "react-icons/ai";
 import "../styles/Homepage.css";
 import { sliderImage } from "../components/data/Image";
 import { Icons } from "../components/data/Icon";
+import { HeroBanner } from "./HeroBanner";
+// import "./Carousel.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -143,53 +145,35 @@ const HomePage = () => {
     setCurrentIndex(index);
   };
 
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prevIndex) =>
+        prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000); // Adjust the interval time (in milliseconds) as needed
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, [Icons.length]);
+
+  const handlePrev = () => {
+    setCurrent((prevIndex) =>
+      prevIndex === 0 ? Icons.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrent((prevIndex) =>
+      prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   return (
     <Layout title={"ALL Products - Best offers "}>
+      <div className="container-fluid m-0 p-0 overflow-hidden">
       <div className="homepage">
-      {/* banner image */}
-      {/* <img
-        src="/images/banner.png"
-        className="banner-img"
-        alt="bannerimage"
-        width={"100%"}
-      /> */}
-      {/* banner image */}
-      <div className="ba">
-      <div className="banner-imgs">
-      {sliderImage.map((item, index) => (
-        <div
-          key={index}
-          style={{ display: index === currentIndex ? 'block' : 'none' }}
-        >
-          <img
-            src={`${item.img}`}
-            className="banner-img"
-            alt="bannerimg"
-          />
-        </div>
-      ))}
-
-      <div className="slider-controls">
-        <button className="control-left" onClick={prevSlide}>&#10094;</button>
-        <button className="control-right" onClick={nextSlide}>&#10095;</button>
-      </div>
-
-      <div className="dots-container">
-        {sliderImage.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => setSlide(index)}
-          ></span>
-        ))}
-      </div>
-    </div>
-        <div>
-          <div className="new-side">
-            <img src="./images/eCommerce-Development.svg"  alt="neew"/>
-          </div>
-        </div>
+        <HeroBanner />
       </div>
       <div className="home-page">
        <div className="filters-home">
@@ -227,7 +211,6 @@ const HomePage = () => {
           <div className="reset">
           <div className="reset-button">
             <button
-              className="btn btn-danger"
               onClick={() => window.location.reload()}
             >
               RESET FILTERS
@@ -238,19 +221,22 @@ const HomePage = () => {
         <div className="div">
         <div className="products-details">
           <h1 className="text-center mt-0 text-base">PRODUCTS</h1>
-          <div className="d-flex flex-wrap product">
+          <div className="w-full product">
             {products?.map((p) => (
-              <div className="card" key={p._id}>
+              <div className="mt-4" key={p._id}>
                 <button
                       className="btns btn-info ms-1"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
-                <div className="main-card">
+                <div className="main-card d-flex">
+                <div className="main-card-photo">
                 <img
                   src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                 />
+                </div>
+                <div className="verticle-line"></div>
                 <div className="card-body">
                   <div className="card-name-price">
                     <h5 className="card-title">{p.name}</h5>

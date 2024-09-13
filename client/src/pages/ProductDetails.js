@@ -39,8 +39,9 @@ const ProductDetails = () => {
   };
   return (
     <Layout>
-      <div className="row container product-details">
-        <div className="col-md-6 primage">
+      <div className="container-fluid m-0 p-0">
+      <div className="row product-details ">
+        <div className="col-md-6 primage ">
           <img
             src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${product._id}`}
             className="card-img-top"
@@ -116,6 +117,7 @@ const ProductDetails = () => {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </Layout>
   );

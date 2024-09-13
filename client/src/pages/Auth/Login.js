@@ -40,7 +40,8 @@ const Login = () => {
   };
   return (
     <Layout title="Register - Ecommer App">
-      <div className="form-container " style={{ minHeight: "50vh" }}>
+       <div className="Forms" style={{display: "flex" , justifyContent : "space-evenly", alignItems :"center"}}>
+      <div className="form-container ">
         <form onSubmit={handleSubmit}>
           <h4 className="title">LOGIN FORM</h4>
 
@@ -84,6 +85,11 @@ const Login = () => {
           </button>
         </form>
       </div>
+    
+      <div className="login-p" style={{width: "40%"}}>
+           <img src="login.svg" alt="login" style={{width : "100%" , height: "100%"}}/>
+        </div>
+        </div>
     </Layout>
   );
 };

@@ -1,8 +1,8 @@
+import { Layout } from "antd";
 import React from "react";
 import { NavLink } from "react-router-dom";
 const UserMenu = () => {
   return (
-    <div>
       <div className="text-center dashboard-menu">
         <div className="list-group">
           <h4>Dashboard</h4>
@@ -20,7 +20,7 @@ const UserMenu = () => {
           </NavLink>
         </div>
       </div>
-    </div>
+
   );
 };
 

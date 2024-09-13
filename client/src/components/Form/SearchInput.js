@@ -28,9 +28,9 @@ const SearchInput = () => {
         onSubmit={handleSubmit}
       >
         <input
-          className="form-control me-2 search-side"
+          className="form-control search-side"
           type="search"
-          placeholder="Search"
+          placeholder="Search for products..."
           aria-label="Search"
           value={values.keyword}
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}

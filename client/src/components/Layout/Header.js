@@ -39,6 +39,26 @@ const Header = () => {
     list.current.classList.toggle("change");
     // console.log('k');
   }
+
+  let lastScrollTop = 0; // Variable to store last scroll position
+
+  window.addEventListener("scroll", function() {
+      const header = document.querySelector(".header-bar");
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (scrollTop > lastScrollTop) {
+          // Scroll Down
+          header.style.transform = "translateY(-100%)"; // Move header up
+      } else {
+          // Scroll Up
+          header.style.transform = "translateY(0)"; // Move header back to its position
+      }
+  
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  });
+  
+  
+
   return (
     <div className="main-navbar">
       {check ? (<div className="fixed-top header-bar">
@@ -49,7 +69,6 @@ const Header = () => {
                E-MART
             </Link></div>
             <div className="first-right">
-            <div className="search"><SearchInput /></div>
             <ul>
             {!auth?.user ? (
                 <>
@@ -118,11 +137,6 @@ const Header = () => {
              
                 
                 
-                  <li>
-                    <Link className="item" to={"/categories"}>
-                      All Categories
-                    </Link>
-                  </li>
                   {categories?.map((c) => (
                     <li>
                       <Link
@@ -162,7 +176,6 @@ const Header = () => {
                E-MART
             </Link></div>
             <div className="fright">
-            <div className="s"><SearchInput /></div>
             <ul>
             <li  onClick={() => handleClick()}>
                 <Link to="/cart" className='item'>
@@ -230,12 +243,7 @@ const Header = () => {
               </li>
              
                 
-                
-                  <li>
-                    <Link className="item" to={"/categories"}>
-                      All Categories
-                    </Link>
-                  </li>
+    
                   {categories?.map((c) => (
                     <li>
                       <Link

@@ -16,9 +16,10 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main style={{ flex: "1", padding: "20px" , marginTop:"200px"}}>
-        <Toaster />
-        {children}
+      <main style={{ flex: "1", minHeight:"100vh", display: "flex",  justifyContent: "center" , alignItems : "center"}}>
+          
+          <Toaster />
+          {children} 
       </main>
       <Footer />
     </div>

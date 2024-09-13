@@ -4,7 +4,7 @@ import Layout from "./../components/Layout/Layout";
 const Policy = () => {
   return (
     <Layout title={"Privacy Policy"}>
-      <div className="row contactus ">
+      <div className="row contactus container-fluid m-0 p-0">
         <div className="col-md-6 ">
           <img
             src="/privacy.svg"

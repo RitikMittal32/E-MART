@@ -79,7 +79,8 @@ const CartPage = () => {
   };
   return (
     <Layout>
-      <div className=" cart-page">
+    {/* <div style={{display: "flex", justifyContent: "center" , alignItems : "center", height : "100vh"}}> */}
+      <div className=" cart-page container-fluid" style={{marginTop :"130px"}}>
         <div className="row">
           <div className="col-md-12">
             <h1 className="text-center bg-light p-2 mb-1">
@@ -100,7 +101,7 @@ const CartPage = () => {
           <div className="row ">
             <div className="col-md-7  p-0 m-0">
               {cart?.map((p) => (
-                <div className="row card flex-row" key={p._id}>
+                <div className="row flex-row" key={p._id}>
                   <div className="col-md-4">
                     <img
                       src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
@@ -194,6 +195,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
+      {/* </div> */}
     </Layout>
   );
 };

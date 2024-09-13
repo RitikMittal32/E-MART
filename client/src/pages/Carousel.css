@@ -1,0 +1,48 @@
+.slider {
+          position: relative;
+          width: 80%;
+          margin: auto;
+          perspective: 1000px; /* Perspective for 3D effect */
+        }
+        
+        .icons-slider {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform 0.5s;
+        }
+        
+        .icons {
+          width: 100px; /* Adjust size as needed */
+          height: 100px; /* Adjust size as needed */
+          position: absolute;
+          transition: transform 0.5s, z-index 0.5s;
+          z-index: 1;
+        }
+        
+        .icons.active {
+          transform: translateZ(100px); /* Bring the active item to the front */
+          z-index: 10; /* Higher z-index for active item */
+        }
+        
+        .carousel-control {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0, 0, 0, 0.5);
+          color: white;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+        }
+        
+        .carousel-control.prev {
+          left: 0;
+        }
+        
+        .carousel-control.next {
+          right: 0;
+        }
+        

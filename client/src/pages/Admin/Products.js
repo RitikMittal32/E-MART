@@ -4,6 +4,7 @@ import Layout from "./../../components/Layout/Layout";
 import axios from "../../config/axiosConfig";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import "./admin.css"
 const Products = () => {
   const [products, setProducts] = useState([]);
 
@@ -24,33 +25,35 @@ const Products = () => {
   }, []);
   return (
     <Layout>
-      <div className="row dashboard">
+      <div className="container-fluid row dashboard" style={{marginTop : "130px"}}>
         <div className="col-md-3">
           <AdminMenu />
         </div>
         <div className="col-md-9 ">
           <h1 className="text-center">All Products List</h1>
           <div className="d-flex flex-wrap">
-            {products?.map((p) => (
-              <Link
-                key={p._id}
-                to={`/dashboard/admin/product/${p.slug}`}
-                className="product-link"
-              >
-                <div className="card m-2" style={{ width: "18rem" }}>
-                  <img
-                    src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
-                    className="card-img-top"
-                    alt={p.name}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title text-white">{p.name}</h5>
-                    <p className="card-text text-white">{p.description}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+  {products?.map((p) => (
+    <Link
+      key={p._id}
+      to={`/dashboard/admin/product/${p.slug}`}
+      className="product-link"
+    >
+      <div className="main-card" style={{ width: "18rem" }}>
+        <img
+          src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
+          className="card-img-top"
+          alt={p.name}
+        />
+        <div className="card-body">
+          <h5 className="card-title">{p.name}</h5>
+          <p className="card-text">{p.description}</p>
+          <p className="card-price">{p.price}</p>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
         </div>
       </div>
     </Layout>
