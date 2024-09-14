@@ -11,7 +11,7 @@ import "../styles/Homepage.css";
 import { sliderImage } from "../components/data/Image";
 import { Icons } from "../components/data/Icon";
 import { HeroBanner } from "./HeroBanner";
-// import "./Carousel.css";
+import { Carousel } from "./Carousel";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -298,7 +298,7 @@ const HomePage = () => {
         </div>
         </div>
       </div>
-      <div className="slider">
+      {/* <div className="slider">
       <div className="icons-slider">
         {Icons.map((item) => {
           return( 
@@ -307,6 +307,9 @@ const HomePage = () => {
             </div>
         )})}
       </div>
+      </div> */}
+      <div className="slider">
+        <Carousel Icons={Icons}/>
       </div>
       </div>
     </Layout>

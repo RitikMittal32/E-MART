@@ -1,48 +1,53 @@
-.slider {
-          position: relative;
-          width: 80%;
-          margin: auto;
-          perspective: 1000px; /* Perspective for 3D effect */
-        }
-        
-        .icons-slider {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          transform-style: preserve-3d;
-          transition: transform 0.5s;
-        }
-        
-        .icons {
-          width: 100px; /* Adjust size as needed */
-          height: 100px; /* Adjust size as needed */
-          position: absolute;
-          transition: transform 0.5s, z-index 0.5s;
-          z-index: 1;
-        }
-        
-        .icons.active {
-          transform: translateZ(100px); /* Bring the active item to the front */
-          z-index: 10; /* Higher z-index for active item */
-        }
-        
-        .carousel-control {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.5);
-          color: white;
-          border: none;
-          padding: 10px;
-          cursor: pointer;
-        }
-        
-        .carousel-control.prev {
-          left: 0;
-        }
-        
-        .carousel-control.next {
-          right: 0;
-        }
-        
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+
+
+.slide img {
+  width: 20rem;
+  /* margin: 0 auto; */
+}
+
+.slide {
+  transform: scale(0.5);
+  transition: transform 300ms;
+  opacity: 1;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.activeSlide {
+  transform: scale(1);
+  opacity: 1;
+  border: 3px solid;
+  border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
+
+.arrow {
+  background-color: #fff;
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow svg {
+  transition: color 300ms;
+}
+
+.arrow svg:hover {
+  color: #68edff;
+}
+
+.next {
+  right: 0%;
+  top: 50%;
+}
+
+.prev {
+  left: 0%;
+  top: 50%;
+}

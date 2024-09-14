@@ -172,7 +172,7 @@ const Header = () => {
         <div className="main-heading" >
         <div className="heading">
           <div className="nav">
-           <div className="logo-title"> <Link to="/" className="navbar-brand">
+           <div className="logo-title "> <Link to="/" className="navbar-brand">
                E-MART
             </Link></div>
             <div className="fright">

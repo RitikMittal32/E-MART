@@ -3,9 +3,6 @@ export const Icons = [
                     imgs: "./icons/Addidas.svg"
           },
           {
-                    imgs: "./icons/apple.svg"
-          },
-          {
                     imgs: "./icons/Gucci.svg"
           },
           {
@@ -31,9 +28,6 @@ export const Icons = [
           },
           {
                     imgs: "./icons/Addidas.svg"
-          },
-          {
-                    imgs: "./icons/apple.svg"
           },
           {
                     imgs: "./icons/Gucci.svg"

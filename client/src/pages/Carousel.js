@@ -1,50 +1,70 @@
-import React, { useState, useEffect } from "react";
-import "./Carousel.css"; // Ensure you create this CSS file
 
-export const Carousel = ({ Icons }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+import "./Carousel.css";
+import { useState } from "react";
+import Slider from "react-slick";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 3000); // Adjust the interval time (in milliseconds) as needed
 
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [Icons.length]);
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? Icons.length - 1 : prevIndex - 1
+export const Carousel = ({Icons}) => {
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div className="arrow next" onClick={onClick}>
+        <FaArrowRight />
+      </div>
     );
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div className="arrow prev" onClick={onClick}>
+        <FaArrowLeft />
+      </div>
     );
   };
+
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const settings = {
+    infinite: true,
+    lazyLoad: true,
+    speed: 300,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: 0,
+    beforeChange: (current, next) => setImageIndex(next),
+    autoplay: true,  // Enable auto scroll
+    autoplaySpeed: 1000,  // Set delay to 2 seconds
+    pauseOnHover: false,  // Pause on hover
+    arrows: false,  // Disable next/prev arrows
+    responsive: [
+      {
+        breakpoint: 768,  // For mobile devices
+        settings: {
+          slidesToShow: 3,  // Show 3 slides on mobile
+        },
+      },
+      {
+        breakpoint: 1024,  // For tablet and below desktop
+        settings: {
+          slidesToShow: 5,  // Show 5 slides on larger screens
+        },
+      },
+    ],
+  };
+  
+
 
   return (
-    <div className="slider">
-      <button className="carousel-control prev" onClick={handlePrev}>
-        &lt;
-      </button>
-      <div className="icons-slider">
-        {Icons.map((item, index) => (
-          <div
-            key={index}
-            className={`icons ${index === currentIndex ? "active" : ""}`}
-          >
-            <img src={item.imgs} alt="logo" />
+    <div className="App">
+      <Slider {...settings}>
+        {Icons.map((img, idx) => (
+          <div className={idx === imageIndex ? "slide activeSlide" : "slide"}>
+            <img src={img.imgs} alt={img} />
           </div>
         ))}
-      </div>
-      <button className="carousel-control next" onClick={handleNext}>
-        &gt;
-      </button>
+      </Slider>
     </div>
   );
-};
+}
 
