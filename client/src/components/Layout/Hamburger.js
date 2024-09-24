@@ -8,7 +8,7 @@ const Hamburger = ({handleClick, handleLogout, auth, categories, cart, list}) =>
           // const list = useRef();
 
   return (
-          <div className="fixed-top h change" ref={list}>
+          <div className="fixed-top h" ref={list}>
         
           <div className="ha">
           <div className="hamburgur" onClick={(e) => handleClick(e)} >
