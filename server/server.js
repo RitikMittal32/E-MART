@@ -77,7 +77,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   pingTimeout: 60000, // Set ping timeout for connections
   cors: {
-    origin: "https://e-mart-kappa.vercel.app", // Your frontend URL
+    origin: "*", // Your frontend URL
+    methods: ["GET", "POST"], 
   },
 });
 
@@ -260,6 +261,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(4300, () => {
-  console.log('Server started on port 4300');
+server.listen(PORT, () => {
+  console.log('Server started on port');
 });
