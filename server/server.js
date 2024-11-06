@@ -59,14 +59,6 @@ app.get("/", (req, res) => {
 // PORT
 const PORT = process.env.PORT || 3000;
 
-// Run listen
-app.listen(PORT, () => {
-  console.log(
-    `Server Running on ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan
-      .white
-  );
-});
-
 // console.log(__dirname, " ", __filename); 
 
 const server = http.createServer(app);
@@ -262,5 +254,6 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log('Server started on port');
+  console.log(`Server Running on ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan
+      .white);
 });
