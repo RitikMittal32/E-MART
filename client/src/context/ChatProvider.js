@@ -20,7 +20,7 @@ export const ChatProvider = ({ children }) => {
       setUser(userInfo);
   
       const newSocket = io(`${BACKEND_URL}`, {
-        transports: ["websocket"], // Optional: to force WebSocket transport
+        transports: ["websocket", "polling"], // Optional: to force WebSocket transport
       });
       setSocket(newSocket);
       

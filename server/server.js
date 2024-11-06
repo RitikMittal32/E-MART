@@ -78,7 +78,7 @@ const io = new Server(server, {
   },
 });
 
-// Socket.IO events
+// Socket.IO eventsa
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
 
