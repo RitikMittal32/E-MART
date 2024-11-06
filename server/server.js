@@ -73,8 +73,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   pingTimeout: 60000, // Set ping timeout for connections
   cors: {
-    origin: "*", // Your frontend URL
-    credentials: true, // Allow credentials if required
+    origin: "https://your-frontend-domain.com", // Your frontend URL
+    methods: ["GET", "POST"]
   },
 });
 
@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
     if (_id) {
       socket.join(_id); // Join the room with the user's ID
       socket.emit("connected"); // Acknowledge connection
-      console.log(`User with ID ${_id} joined their room`);
+      // console.log(`User with ID ${_id} joined their room`);
     } else {
       console.error("User ID is undefined, cannot join room.");
     }
@@ -102,7 +102,7 @@ io.on("connection", (socket) => {
         // console.log(`Admin joined room of user ${userId}`);
       });
       
-     console.log(`Admin joined room`);
+    //  console.log(`Admin joined room`);
       socket.emit("admin joined all user rooms");
     } catch (error) {
       console.error("Error joining user rooms for admin:", error);

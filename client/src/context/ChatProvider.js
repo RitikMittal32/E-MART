@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client"; // Make sure to import io from socket.io-client
-
+import { BACKEND_URL } from "../config/axiosConfig";
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
@@ -19,7 +19,7 @@ export const ChatProvider = ({ children }) => {
     if (userInfo && userInfo.user) {
       setUser(userInfo);
   
-      const newSocket = io("http://localhost:4300", {
+      const newSocket = io(`${BACKEND_URL}`, {
         transports: ["websocket"], // Optional: to force WebSocket transport
       });
       setSocket(newSocket);
