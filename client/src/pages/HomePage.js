@@ -246,27 +246,37 @@ const HomePage = () => {
                     {p.description.substring(0, 60)}...
                   </p>
                   </div>
-                  <div className="card-name-prices">
+                  <div className="card-name-prices  flex justify-evenly" style={{width :"150px"}}>
 
-                  <h5 className="card-title card-price">
+                  <h5 className="card-title card-price mr-4">
                   {p.price.toLocaleString("en-IN", {
                     style: "currency",
                     currency: "INR",
                   })}
                     </h5>
+
                     <button
-                      className="btns ms-1"
-                      onClick={() => {
-                        setCart([...cart, p]);
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, p])
-                        );
-                        toast.success("Item Added to cart");
-                      }}
-                    >
-                      <img className="cart-icons" src="./icons/cart.png" alt="cart"/> 
-                    </button>
+
+  onClick={() => {
+    const existingProductIndex = cart.findIndex((item) => item._id === p._id);
+    let updatedCart = [...cart];
+
+    if (existingProductIndex >= 0) {
+      // If the product is already in the cart, increase its quantity
+      updatedCart[existingProductIndex].quantity += 1;
+    } else {
+      // Otherwise, add the product with a quantity of 1
+      updatedCart.push({ ...p, quantity: 1 });
+    }
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item Added to cart");
+  }}
+>
+<img className="cart-icons" src="./icons/cart.png"   alt="cart"/> 
+</button>
+
                   </div>
                 </div>
                 </div>

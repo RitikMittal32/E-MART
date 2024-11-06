@@ -1,8 +1,44 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
-
+import asyncHandler from "express-async-handler";
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
+
+// export const allUsers = asyncHandler(async (req, res) => {
+//   const keyword = req.query.search
+//     ? {
+//         $or: [
+//           { name: { $regex: req.query.search, $options: "i" } },
+//           { email: { $regex: req.query.search, $options: "i" } },
+//         ],
+//       }
+//     : {};
+
+//   // Ensure req.user is available
+//   if (!req.user) {
+//     return res.status(401).json({ message: "Not authorized, no user information" });
+//   }
+
+//   // Find users based on keyword and exclude the current user
+//   const users = await userModel.find({
+//     ...keyword,
+//     _id: { $ne: req.user._id }
+//   });
+
+//   res.status(200).json(users);  // Send response with status code
+// });
+
+export const allUsers = async (req, res) => {
+  try {
+    const users = await userModel.find().select("-password"); // Exclude password
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+
 
 export const registerController = async (req, res) => {
   try {

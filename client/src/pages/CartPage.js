@@ -21,8 +21,8 @@ const CartPage = () => {
   const totalPrice = () => {
     try {
       let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
+      cart?.forEach((item) => {
+        total += item.price * item.quantity;
       });
       return total.toLocaleString("en-IN", {
         style: "currency",
@@ -32,6 +32,7 @@ const CartPage = () => {
       console.log(error);
     }
   };
+  
   //detele item
   const removeCartItem = (pid) => {
     try {
@@ -45,6 +46,30 @@ const CartPage = () => {
     }
   };
 
+  const increaseQuantity = (productId) => {
+    const updatedCart = cart.map((item) => {
+      if (item._id === productId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+  
+  const decreaseQuantity = (productId) => {
+    const updatedCart = cart
+      .map((item) => {
+        if (item._id === productId && item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      })
+      .filter((item) => item.quantity > 0); // Remove items with quantity 0
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+  
   //get payment gateway token
   const getToken = async () => {
     try {
@@ -97,34 +122,51 @@ const CartPage = () => {
             </h1>
           </div>
         </div>
-        <div className="container ">
-          <div className="row ">
-            <div className="col-md-7  p-0 m-0">
-              {cart?.map((p) => (
-                <div className="row flex-row" key={p._id}>
-                  <div className="col-md-4">
-                    <img
-                      src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <p>{p.name}</p>
-                    <p>{p.description.substring(0, 30)}</p>
-                    <p>Price : {p.price}</p>
-                    <div className="cart-remove-btn">
-                    <button
-                      className="btn-danger bg-red-600"
-                      onClick={() => removeCartItem(p._id)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                  </div>
-                </div>
-              ))}
+        <div className="container">
+  <div className="row">
+    <div className="col-md-7 p-0 m-0">
+      {cart?.map((p) => (
+        <div className="row flex-row align-items-center my-3" key={p._id}>
+          <div className="col-md-4">
+            <img
+              src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}
+              className="card-img-top"
+              alt={p.name}
+            />
+          </div>
+          <div className="col-md-5">
+            <p>{p.name}</p>
+            <p>{p.description.substring(0, 30)}</p>
+            <p>Price: ₹{p.price}</p>
+            <div className="quantity-control">
+              <button
+                className="btn btn-outline-primary me-2"
+                onClick={() => decreaseQuantity(p._id)}
+              >
+                -
+              </button>
+              <span>Quantity: {p.quantity}</span>
+              <button
+                className="btn btn-outline-primary ms-2"
+                onClick={() => increaseQuantity(p._id)}
+              >
+                +
+              </button>
             </div>
+            <div className="cart-remove-btn mt-2">
+              <button
+                className="btn btn-danger"
+                onClick={() => removeCartItem(p._id)}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+
+</div>
+
             <div className="col-md-5 cart-summary ">
               <h2>Cart Summary</h2>
               <p>Total | Checkout | Payment</p>

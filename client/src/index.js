@@ -8,18 +8,25 @@ import { AuthProvider } from "./context/auth";
 import { SearchProvider } from "./context/search";
 import { CartProvider } from "./context/cart";
 import "antd/dist/reset.css";
+import {ChatProvider} from "./context/ChatProvider";
+import { ChakraProvider } from "@chakra-ui/react";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthProvider>
-    <SearchProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CartProvider>
-    </SearchProvider>
-  </AuthProvider>
+  <ChakraProvider>
+    <AuthProvider>
+      <SearchProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <ChatProvider>
+              <App />
+            </ChatProvider>
+          </BrowserRouter>
+        </CartProvider>
+      </SearchProvider>
+    </AuthProvider>
+  </ChakraProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -58,3 +58,7 @@
 .primage img{
  width: 200px;
 }
+
+@media (max-width: 700px){
+
+}

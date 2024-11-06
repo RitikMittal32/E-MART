@@ -1,0 +1,59 @@
+.hamburger-icon {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          position: relative;
+          left: -40px;
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+          transition: transform 0.5s ease;
+          background-color: black;
+          border-radius: 50%;
+          overflow: hidden;
+
+        }
+        
+        .hamburger-icon span {
+          background-color:white;
+          height: 4px;
+          border-radius: 2px;
+          z-index: 2000;
+        }
+        
+        .menu-items {
+          position: absolute;
+          top: 0; /* Align to the top of the hamburger icon */
+          /* Center the menu items horizontally relative to the hamburger */
+          transform: translateX(-50%) scale(0); /* Start hidden and center it */
+          transform-origin: right; /* Set the pivot point for scaling */
+          transition: transform 0.5s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+        }
+        
+        .menu-items.open {
+          transform: translateX(-50%) scale(1); /* Scale up and keep centered */
+        }
+        
+        .menu-items li{
+          z-index: 1000;
+          position: absolute; 
+          list-style: none;
+          transform-origin: 80px; /* Set pivot point to the left for rotation */
+          transform: rotate(calc(180deg / 3 * var(--i))); /* Replace with actual number of items */
+          right: 0;
+          top:0;
+          /* background-color: yellow; */
+        }
+        
+        .menu-items li div{
+          
+    
+  
+        }

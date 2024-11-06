@@ -10,13 +10,34 @@ import './Header.css';
 import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect,useState } from "react";
 import Hamburger from "./Hamburger";
-
+import { getSender } from "../../config/ChatLogics";
+import { ChatState } from "../../context/ChatProvider";
+import CHamburger from "./CHamburger";
+import {
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/menu";
+import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+// import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { EmailIcon } from "@chakra-ui/icons";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const [cart] = useCart();
   const categories = useCategory();
   const [check,setCheck] = useState(true);
+  const {
+    setSelectedChat,
+    user,
+    notification,
+    setNotification,
+    chats,
+    setChats
+  } = ChatState();
+
 
   useEffect(() => {
             const width = window.innerWidth;
@@ -31,6 +52,8 @@ const Header = () => {
       token: "",
     });
     localStorage.removeItem("auth");
+    // localStorage.removeItem("userInfo");
+    localStorage.removeItem("chats");
     toast.success("Logout Successfully");
   };
 
@@ -43,21 +66,33 @@ const Header = () => {
 
   let lastScrollTop = 0; // Variable to store last scroll position
 
-  window.addEventListener("scroll", function() {
-      const header = document.querySelector(".header-bar");
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  useEffect(() => {
+    let lastScrollTop = 0; // Variable to store last scroll position
   
-      if (scrollTop > lastScrollTop) {
+    const handleScroll = () => {
+      const header = document.querySelector(".header-bar");
+  
+      if (header) {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  
+        if (scrollTop > lastScrollTop) {
           // Scroll Down
           header.style.transform = "translateY(-100%)"; // Move header up
-      } else {
+        } else {
           // Scroll Up
           header.style.transform = "translateY(0)"; // Move header back to its position
+        }
+  
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
       }
+    };
   
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-  });
+    window.addEventListener("scroll", handleScroll);
   
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   
 
   return (
@@ -86,40 +121,92 @@ const Header = () => {
                 </>
               ) : (
                 <>
+
+
                       <li>
-                        <Link
-                          to={`/dashboard/${
-                            auth?.user?.role === 1 ? "admin" : "user"
-                          }`}
-                          className='item'
-                        >
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li>
+                      <Link to="/cart" className='item bg-white rounded-full w-full'>
+                      <Badge
+                        count={cart?.length}
+                        showZero
+                        offset={[0, 0]}
+                        style={{ backgroundColor: 'transparent', border: 'none', }}
+                      >
+                        <div className="w-10">
+                          <img src="/Cart.svg" alt="cart" />
+                        </div>
+                      </Badge>
+
+                      </Link>
+                    </li>
+                    <li> 
+                      <Link 
+                  to={auth?.user?.role === 1 ? "/admin-chat" : "/user-chat"} 
+                  className="bg-white rounded-full w-full" 
+      
+                >
+                 
+                  <div className="w-10 p-1"><img src="/Message.svg" alt="cart" /></div>
+               
+                  </Link>
+                    </li>
+                  
+
+                    <li>
+                    <Menu>
+            <MenuButton p={1}>
+              <div className="bg-white rounded-full w-10"><img src="/Notify.svg" alt="notify" /></div>
+            </MenuButton>
+            <MenuList pl={2}>
+                {!notification.length && "No New Messages"}
+                {notification.map((notif) => (
+                  <MenuItem
+                    key={notif._id}
+                    onClick={() => {
+                      setSelectedChat(notif.chat);
+                      setNotification(notification.filter((n) => n !== notif));
+                    }}
+                  >
+                    {notif.chat.isGroupChat
+                      ? `New Message in ${notif.chat.chatName}`
+                      : `New Message from ${getSender(user, notif.chat.users)}`}
+                  </MenuItem>
+                ))}
+              </MenuList>
+          </Menu>
+                    </li>
+                    <li>
                         <Link
                           onClick={handleLogout}
                           to="/login"
-                          className='item'
+                          className='item bg-white rounded-full w-full'
                         >
-                           Logout
+                           <div className="w-10 p-1"><img src="/LogOut.svg" alt="cart" /></div>
                         </Link>
                       </li>
-                      
-                   
+                    <div className="item">
+                    <Link
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                          className='item flex'
+                        >
+                    <div className='item bg-white rounded-full w-full mr-1'>
+                    <div className="w-10 ">
+                          <img src="/User.svg" alt="cart" />
+                        </div>
+                      </div>
+                      <div className="uppercase">
+                        {auth?.user?.name}
+                      </div>
+                        </Link>
                   
+                    </div>
+
+                
+                    
                 </>
               )}
-              <li>
-                <Link to="/cart" className='item'>
-                  <Badge count={cart?.length} showZero offset={[10, -5]}>
-                  <p>🛒 Cart</p>  
-                  </Badge>
-                </Link>
-              </li>
-              <div className="user">
-              <FaRegUserCircle /> {auth?.user?.name}
-              </div>
+    
             </ul>
             </div>
           </div>
@@ -154,7 +241,9 @@ const Header = () => {
   </div>
   ): (
     <>
-       <Hamburger handleClick={handleClick} handleLogout={handleLogout}  auth={auth} categories={categories} cart={cart} list={list}/> 
+       {/* <Hamburger handleClick={handleClick} handleLogout={handleLogout}  auth={auth} categories={categories} cart={cart} list={list}/> */}
+       <CHamburger handleClick={handleClick} handleLogout={handleLogout}  auth={auth} categories={categories} cart={cart} list={list}/>
+        
     </>
   )}
     </div>

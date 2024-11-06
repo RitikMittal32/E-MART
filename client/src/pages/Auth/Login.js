@@ -17,6 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       const res = await axios.post("/api/v1/auth/login", {
         email,
         password,
@@ -29,7 +30,9 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
+        // localStorage.setItem("userInfo", JSON.stringify(res.data.user)); 
         navigate(location.state || "/");
+        // navigate('/register', { replace: true });
       } else {
         toast.error(res.data.message);
       }
