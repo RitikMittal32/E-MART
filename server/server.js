@@ -69,7 +69,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   pingTimeout: 60000, // Set ping timeout for connections
   cors: {
-    origin: "*", // Your frontend URL
+    origin: "https://e-mart-1.onrender.com", // Your frontend URL
     methods: ["GET", "POST"], 
   },
 });
