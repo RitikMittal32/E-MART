@@ -18,7 +18,6 @@ import MessageThread from "./models/messageModel.js";
 import productModel from "./models/productModel.js";
 import http from 'http';
 import messageRoutes from "./routes/messageRoutes.js";
-import UserSocket from "./models/socketModel.js";
 import userModel from "./models/userModel.js";
 
 // Define __filename and __dirname
@@ -73,8 +72,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   pingTimeout: 60000, // Set ping timeout for connections
   cors: {
-    origin: "https://your-frontend-domain.com", // Your frontend URL
-    methods: ["GET", "POST"]
+    origin: "https://e-mart-kappa.vercel.app", // Your frontend URL
   },
 });
 
