@@ -47,9 +47,6 @@ app.use("/api/v1/review", reviewRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/message", messageRoutes)
 // Rest API
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome to ecommerce app</h1>");
-});
 
 app.use(express.static(path.join(__dirname, './client/build')));
 
@@ -57,6 +54,11 @@ app.use(express.static(path.join(__dirname, './client/build')));
 app.get("*", (req,res) => 
   res.sendFile(path.join(__dirname,"./client/build/index.html"))
 );
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome to ecommerce app</h1>");
+});
+
+
 // PORT
 const PORT = process.env.PORT || 3000;
 
