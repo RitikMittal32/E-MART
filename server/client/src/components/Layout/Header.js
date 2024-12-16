@@ -240,11 +240,11 @@ const Header = () => {
         )}
   </div>
   ): (
-    <>
+    <div className="">
        {/* <Hamburger handleClick={handleClick} handleLogout={handleLogout}  auth={auth} categories={categories} cart={cart} list={list}/> */}
        <CHamburger handleClick={handleClick} handleLogout={handleLogout}  auth={auth} categories={categories} cart={cart} list={list}/>
         
-    </>
+    </div>
   )}
     </div>
   );

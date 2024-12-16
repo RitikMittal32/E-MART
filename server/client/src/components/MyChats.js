@@ -8,12 +8,12 @@ import { ChatLoading } from "./ChatLoading";
 // import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { ChatState } from "../context/ChatProvider";
 
-export const MyChats = ({ fetchAgain }) => {
+export const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState();
   const [loadingChats, setLoadingChats] = useState(true); // State to manage loading
   const { selectedChat, setSelectedChat, user } = ChatState(); // Initialize chats as an empty array
   const toast = useToast();
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState();
   const fetchChats = async () => {
     try {
       const config = {
@@ -22,11 +22,16 @@ export const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get("/api/v1/users", config);
-      setChats(data);
-      localStorage.setItem('chats', JSON.stringify(data));
+      const res = await axios.get("/api/v1/users", config);
+      if(res && res.data.success){
+        // console.log('haanji');
+        // console.log(res.data.data);
+          setChats(res.data.data);
+          localStorage.setItem("chats", JSON.stringify(res.data)); 
+      }
+    
       setLoadingChats(false); // Set loading to false after fetching chats
-    } catch (error) {
+    }catch(error) {
       setLoadingChats(false); // Set loading to false on error
       toast({
         title: "Error Occurred!",
@@ -40,18 +45,16 @@ export const MyChats = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("auth")));
-  
-    // Check if chats exist in localStorage
-    const storedChats = localStorage.getItem('chats');
-    if (storedChats) {
-      setChats(JSON.parse(storedChats)); // Load chats from localStorage if available
-      setLoadingChats(false); // Set loading to false since data is loaded
-    } else {
-      fetchChats(); // Fetch chats if not in localStorage
+    const user = JSON.parse(localStorage.getItem("auth"));
+    setLoggedUser(user); 
+    const savedChats = JSON.parse(localStorage.getItem("chats")); 
+    if (savedChats && savedChats.success){
+      setChats(savedChats.data);
+      setLoadingChats(false);
+    }else{
+      fetchChats(); 
     }
-  
-  }, [fetchAgain]);
+  },[]);
 
   return (
     <Box
@@ -61,7 +64,7 @@ export const MyChats = ({ fetchAgain }) => {
       p={3}
       bg="white"
       width="100%"
-      height="100vh"
+      height="100%"
       borderRadius="lg"
       borderWidth="1px"
     >

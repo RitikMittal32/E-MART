@@ -31,7 +31,12 @@ import JWT from "jsonwebtoken";
 export const allUsers = async (req, res) => {
   try {
     const users = await userModel.find().select("-password"); // Exclude password
-    res.json(users);
+    // res.json(users);
+    res.status(200).json({
+      success: true, 
+      message: "User details uploaded", 
+      data : users
+    })
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }

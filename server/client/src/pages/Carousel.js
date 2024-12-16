@@ -56,7 +56,7 @@ export const Carousel = ({Icons}) => {
 
 
   return (
-    <div className="App">
+    <div>
       <Slider {...settings}>
         {Icons.map((img, idx) => (
           <div className={idx === imageIndex ? "slide activeSlide" : "slide"}>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import axios from '../config/axiosConfig';
 import { io } from 'socket.io-client';
 import { useAuth } from '../context/auth';
 import { ChatState } from '../context/ChatProvider';
+
 
 const AdminChatWindow = ({ selectedChat, user }) => {
   const [messageThreads, setMessageThreads] = useState([]);
@@ -41,7 +42,7 @@ const AdminChatWindow = ({ selectedChat, user }) => {
 
   useEffect(() => {
     fetchMessages();
-    console.log('connected..bro');
+    // console.log('connected..bro');
 
     if (socket) {
       const handleMessageReceived = (newMessageReceived) => {
@@ -140,6 +141,13 @@ const AdminChatWindow = ({ selectedChat, user }) => {
     setSelectedMessage(null);
     setSelectedReviewId(null);
   };
+  const containerRef = useRef();
+
+useEffect(() => {
+  if (containerRef.current) {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  }
+}, [messageThreads]);
 
   if (!selectedChat) {
     return (
@@ -152,7 +160,16 @@ const AdminChatWindow = ({ selectedChat, user }) => {
   return (
     <div className="flex flex-col">
       <h2 className="mb-4 text-3xl">Chat with {selectedChat.name}</h2>
-      <div className="mb-4 p-4 bg-gray-50 border rounded-lg">
+      <div
+  className="mb-4 p-4 bg-gray-50 border rounded-lg"
+  style={{
+    height: "100vh",
+    overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+  }}
+  ref={containerRef} // Add a ref to scroll to the bottom
+>
         {available ? (
           messageThreads.length > 0 ? (
             messageThreads.map((thread, index) => (

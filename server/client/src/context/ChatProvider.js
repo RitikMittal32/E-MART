@@ -24,10 +24,10 @@ export const ChatProvider = ({ children }) => {
       });
       setSocket(newSocket);
       
-      console.log(userInfo.user); // Check user information
+  
   
       newSocket.on('connect', () => {
-        console.log('Connected to socket');
+
         // Ensure userInfo.user._id is defined
         if (userInfo.user._id) {
           if(userInfo.user._id === "6595132ddd5e54715069ab59"){

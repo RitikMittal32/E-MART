@@ -6,34 +6,50 @@ import Layout from "../components/Layout/Layout";
 import { ChatState } from "../context/ChatProvider";
 
 const AdminChatpage = () => {
-  const [fetchAgain, setFetchAgain] = useState(false);
-  const { user } = ChatState();
   const chatboxRef = useRef(null);
 
   useEffect(() => {
     if (chatboxRef.current) {
       chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     }
-  }, [fetchAgain]);
+  }, []);
 
   return (
     <Layout title={"Message"}>
-      <Box className="container-fluid" p={0} mb={4} height="100vh" overflow="hidden">
-        <Box display="flex" width="100%" height="calc(100vh - 150px)" mt="150px">
-          <Box width="33%">
-            <MyChats fetchAgain={fetchAgain} />
-          </Box>
-          <Box 
-            width="67%" 
-            ref={chatboxRef} 
-            overflowY="auto" 
-            height="100%"
-          >
-            <Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
-          </Box>
-        </Box>
-      </Box>
-    </Layout>
+<div className="container-fluid mb-4 lg:mt-[10px]">
+
+      <div
+        className="d-flex flex-column flex-sm-row mt-12"
+        style={{ width: "100%", height: "100%" }}
+      >
+        {/* First Box */}
+        <div
+          style={{
+            width: "100%",
+            height: "50%",
+            overflowY: "auto",
+          }}
+          className="flex-sm-33"
+        >
+          <MyChats />
+        </div>
+  
+        {/* Second Box */}
+        <div
+          style={{
+            width: "100%",
+            height: "50%",
+            overflowY: "auto",
+          }}
+          className="flex-sm-67 "
+        >
+          <Chatbox />
+        </div>
+      </div>
+    </div>
+  </Layout>
+  
+  
   );
 };
 

@@ -4,9 +4,11 @@ import AdminChatWindow from "./AdminChatWindow"; // Import Admin Chat Window
 import ChatWindow from "./ChatWindow";
 import { ChatState } from "../context/ChatProvider";
 import { useAuth } from "../context/auth";
-const Chatbox = ({ fetchAgain, setFetchAgain }) => {
+import { useRef,useEffect } from "react";
+const Chatbox = () => {
   const { selectedChat, user } = ChatState();
   const [auth, setAuth] = useAuth();
+
   return (
     <Box
       d={{ base: selectedChat ? "flex" : "none", md: "flex" }}
@@ -14,7 +16,7 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       flexDir="column"
       p={3}
       bg="white"
-      height="100vh"
+      height="100%" 
       borderRadius="lg"
       borderWidth="1px"
     >

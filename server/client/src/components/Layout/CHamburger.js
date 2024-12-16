@@ -25,37 +25,45 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
   const toggleMenu = () => setIsOpen(!isOpen); // Toggle the menu on click
 
   return (
-    <div className="hamburger-container">
-      <div 
-        className={`hamburger-icon ${isOpen ? "active" : ""}`} 
-        onClick={toggleMenu} // Use click to toggle
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      
+    <div >
+<div>
+  <div
+    className={`hamburger-icon ${isOpen ? "done" : ""}`}
+    onClick={toggleMenu}
+  >
+    <span></span>
+  </div>
+
+  <div className={`circ-line ${isOpen ? "open" : ""}`}>
+    <span></span> 
+  </div>
+  <div
+    className={`radial-quarter-shadow ${isOpen ? "open" : ""}`}
+  ></div>
+</div>
+
+
       <div className={`menu-items ${isOpen ? "open" : ""}`}>
-        <ul>
+
         {!auth?.user ? (
-                <>
-                  <li style={{ '--i': 1 }}>
+                <ul className="menu-it">
+                  <li className="items">
                     <Link to="/login" className='item text-black' >
                       Login
                     </Link>
                   </li>
-                  <li style={{ '--i': 2 }}>
+                  <li className="items">
                     <Link to="/register" className='item text-black'>
                      Register
                     </Link>
                   </li>
                   
-                </>
+                </ul>
               ) : (
-                    <>
-          <li className="menu-item" style={{ '--i': 1 }}>
+                    <ul className="menu-i">
+          <li className="menu-item" >
           <div>
-            <Link to="/cart" className='item bg-white rounded-full w-full'>
+            <Link to="/cart" className='item  rounded-full w-full'>
               <Badge
                 count={cart?.length}
                 showZero
@@ -69,36 +77,36 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
             </Link>
           </div>
           </li>
-          <li style={{ '--i': 2 }}>
+          <li className="menu-item" >
             <Link 
               to={auth?.user?.role === 1 ? "/admin-chat" : "/user-chat"} 
-              className="item bg-white rounded-full w-full"
+              className="item  rounded-full w-full"
             >
               <div className="w-10 p-1">
                 <img src="/Message.svg" alt="chat" />
               </div>
             </Link>
           </li>
-          <li style={{ '--i': 3 }}>
+          <li className="menu-item" >
             <Link
               onClick={handleLogout}
               to="/login"
-              className='item bg-white rounded-full w-full'
+              className='item  rounded-full w-full'
             >
-              <div className="w-10 p-1">
+              <div className="w-12 p-1 ">
                 <img src="/LogOut.svg" alt="logout" />
               </div>
             </Link>
           </li>
           
-          <li className="item" style={{ '--i': 4 }}>
+          <li className="menu-item" >
                     <Link
                           to={`/dashboard/${
                             auth?.user?.role === 1 ? "admin" : "user"
                           }`}
                           className='item flex'
                         >
-                    <div className='item bg-white rounded-full w-full mr-1'>
+                    <div className='item  rounded-full w-full mr-1'>
                     <div className="w-10 ">
                           <img src="/User.svg" alt="cart" />
                         </div>
@@ -109,10 +117,10 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
                         </Link>
                   
                     </li>
-                    <li  style={{ '--i': 5 }}>
+                    <li className="menu-item" >
                     <Menu>
             <MenuButton p={1}>
-              <div className="item bg-white rounded-full w-full"><div className="w-10"><img src="/Notify.svg" alt="notify" /></div></div>
+              <div className="item rounded-full w-full"><div className="w-10"><img src="/Notify.svg" alt="notify" /></div></div>
             </MenuButton>
             <MenuList pl={2}>
                 {!notification.length && "No New Messages"}
@@ -134,10 +142,8 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
                     </li>
                           
                     
-                    </>
+                    </ul>
               )}
-    
-        </ul>
       </div>
     </div>
   );
