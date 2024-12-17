@@ -1,9 +1,7 @@
-import { Box } from "@chakra-ui/layout";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Chatbox from "../components/Chatbox";
 import { MyChats } from "../components/MyChats";
 import Layout from "../components/Layout/Layout";
-import { ChatState } from "../context/ChatProvider";
 
 const AdminChatpage = () => {
   const chatboxRef = useRef(null);
@@ -15,41 +13,24 @@ const AdminChatpage = () => {
   }, []);
 
   return (
-    <Layout title={"Message"}>
-<div className="container-fluid mb-4 lg:mt-[10px]">
+    <Layout title="Message">
+      <div className="container-fluid mb-4 lg:mt-[100px]">
+        <div className="flex flex-col sm:flex-row mt-12 w-full">
+          {/* First Box */}
+          <div className="w-full sm:w-1/3 sm:h-full h-1/2">
+            <MyChats />
+          </div>
 
-      <div
-        className="d-flex flex-column flex-sm-row mt-12"
-        style={{ width: "100%", height: "100%" }}
-      >
-        {/* First Box */}
-        <div
-          style={{
-            width: "100%",
-            height: "50%",
-            overflowY: "auto",
-          }}
-          className="flex-sm-33"
-        >
-          <MyChats />
-        </div>
-  
-        {/* Second Box */}
-        <div
-          style={{
-            width: "100%",
-            height: "50%",
-            overflowY: "auto",
-          }}
-          className="flex-sm-67 "
-        >
-          <Chatbox />
+          {/* Second Box */}
+          <div
+            className="w-full sm:w-2/3 sm:h-full h-1/2 flex overflow-auto"
+
+          >
+            <Chatbox />
+          </div>
         </div>
       </div>
-    </div>
-  </Layout>
-  
-  
+    </Layout>
   );
 };
 

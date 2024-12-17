@@ -10,27 +10,20 @@ const UserChatpage = () => {
   const { user } = ChatState();
   const chatboxRef = useRef(null);
 
-  useEffect(() => {
-    if (chatboxRef.current) {
-      chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
-    }
-  }, [fetchAgain]);
+
 
   return (
     <Layout title={"Message"}>
-      <Box className="container-fluid" p={0} mb={4} height="100vh" overflow="hidden">
-        <Box display="flex" width="100%" height="calc(100vh - 150px)" mt="150px">
+      <Box className="container-fluid" p={0} mb={4} height="calc(100vh-150px)" mt="150px" display="flex">
+
        
 
           <Box 
-            width="100%" 
-            ref={chatboxRef} 
-            overflowY="auto" 
+            width="100%"  
             height="100%"
           >
              <div className="text-lg font-bold text-center">Review Chat History</div> 
             <Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
-          </Box>
         </Box>
       </Box>
     </Layout>

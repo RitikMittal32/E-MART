@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import axios from '../config/axiosConfig';
 import { ChatState } from '../context/ChatProvider';
+import { useAuth } from '../context/auth';
 
-const ChatWindow = ({ user }) => {
+const ChatWindow = () => {
   const [messageThreads, setMessageThreads] = useState([]);
   const [input, setInput] = useState('');
   const [available, setAvailable] = useState(false);
   const { socket } = ChatState();
+  const [user, setUser] = useAuth();
 
   const fetchMessages = async () => {
     try {
@@ -41,7 +43,7 @@ const ChatWindow = ({ user }) => {
     if (socket) {
       const handleAdminResponse = (adminMessageData) => {
         const { message, adminId, reviewId } = adminMessageData;
-        console.log("ab toh aaya na bhidu");
+        // console.log("ab toh aaya na bhidu");
         setMessageThreads((prevThreads) => {
           const updatedThreads = [...prevThreads];
           const threadIndex = updatedThreads.findIndex(thread => thread.review === reviewId);
@@ -102,9 +104,24 @@ const ChatWindow = ({ user }) => {
     }
   };
 
+  const containerRef = useRef();
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, []);
+  
   return (
     <div className="flex flex-col">
-      <div className="flex-grow overflow-y-auto mb-4 p-4 bg-gray-50 border rounded-lg">
+      <div className="flex-grow  mb-4 p-4 bg-gray-50 border rounded-lg"
+        style={{
+          height: "100vh",
+          overflowY: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+       ref={containerRef} 
+      >
         {available ? (
           messageThreads.length > 0 ? (
             messageThreads.map((thread, index) => (

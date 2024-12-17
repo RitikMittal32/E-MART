@@ -6,7 +6,7 @@ import { ChatState } from "../context/ChatProvider";
 import { useAuth } from "../context/auth";
 import { useRef,useEffect } from "react";
 const Chatbox = () => {
-  const { selectedChat, user } = ChatState();
+  const { selectedChat} = ChatState();
   const [auth, setAuth] = useAuth();
 
   return (
@@ -16,14 +16,16 @@ const Chatbox = () => {
       flexDir="column"
       p={3}
       bg="white"
-      height="100%" 
+      height="100vh" 
+      width="100%"
       borderRadius="lg"
       borderWidth="1px"
+      overflow="hidden"
     >
       {auth?.user?.role === 1 ? ( // Check if the user is an admin
-        <AdminChatWindow selectedChat={selectedChat} user={user} /> // Render AdminChatWindow if admin
+        <AdminChatWindow selectedChat={selectedChat}/> // Render AdminChatWindow if admin
       ) : (
-        <ChatWindow user={user} /> // Render ChatWindow if regular user
+        <ChatWindow  /> // Render ChatWindow if regular user
       )}
     </Box>
   );

@@ -5,14 +5,15 @@ import { useAuth } from '../context/auth';
 import { ChatState } from '../context/ChatProvider';
 
 
-const AdminChatWindow = ({ selectedChat, user }) => {
+const AdminChatWindow = ({ selectedChat}) => {
   const [messageThreads, setMessageThreads] = useState([]);
   const [input, setInput] = useState('');
   const [available, setAvailable] = useState(false);
-  const [auth] = useAuth();
+  const [user, setUser] = useAuth();
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null); // New state for selected message for reply
   const { socket } = ChatState();
+  
   const fetchMessages = async () => {
     if (selectedChat && user && user.token) {
       try {

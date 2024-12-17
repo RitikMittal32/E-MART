@@ -7,12 +7,14 @@ import { getSender } from "../config/ChatLogics";
 import { ChatLoading } from "./ChatLoading";
 // import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { ChatState } from "../context/ChatProvider";
+import { useAuth } from "../context/auth";
 
 export const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState();
   const [loadingChats, setLoadingChats] = useState(true); // State to manage loading
-  const { selectedChat, setSelectedChat, user } = ChatState(); // Initialize chats as an empty array
+  const { selectedChat, setSelectedChat } = ChatState(); // Initialize chats as an empty array
   const toast = useToast();
+  const [user, setUser] = useAuth();
   const [chats, setChats] = useState();
   const fetchChats = async () => {
     try {
