@@ -16,7 +16,7 @@ const Chatbox = () => {
       flexDir="column"
       p={3}
       bg="white"
-      height="100vh" 
+      height="calc(100vh+150px)" 
       width="100%"
       borderRadius="lg"
       borderWidth="1px"

@@ -28,7 +28,9 @@ const ReviewComponent = ({ productId , product }) => {
   // }, [productId]);
 
   useEffect(() => {
-    fetchReviews(productId);
+    if(productId){
+      fetchReviews(productId);
+    }
   }, [productId]);
 
   const fetchReviews = async (pid) => {

@@ -19,7 +19,7 @@ import productModel from "./models/productModel.js";
 import http from 'http';
 import messageRoutes from "./routes/messageRoutes.js";
 import userModel from "./models/userModel.js";
-
+import session from "express-session";
 // Define __filename and __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

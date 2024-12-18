@@ -48,19 +48,51 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
         {!auth?.user ? (
                 <ul className="menu-it">
                   <li className="items">
-                    <Link to="/login" className='item text-black' >
-                      Login
+                    <Link to="/login" className='item rounded-full w-full' >
+                    <div className="w-20">
+                    <img src="/Login1.svg" alt="login" />
+                    </div>
                     </Link>
                   </li>
                   <li className="items">
-                    <Link to="/register" className='item text-black'>
-                     Register
+                    <Link to="/register" className='item rounded-full w-full'>
+                    <div className="w-20">
+                    <img src="/Register.png" alt="login" />
+                    </div>
                     </Link>
                   </li>
                   
                 </ul>
               ) : (
                     <ul className="menu-i">
+                  <li  className="menu-item">
+                    <Link to="/" className='item rounded-full w-full'>
+                    <div className="w-10">
+                  <img src="/Home.svg" alt="cart" />
+                </div>
+                    </Link>
+                  </li>
+
+                  <li className="menu-item" >
+                    <Link
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                          className='item flex'
+                        >
+                    <div className='item  rounded-full w-full mr-1'>
+                    <div className="w-10 ">
+                          <img src="/User.svg" alt="cart" />
+                        </div>
+                      </div>
+                      {/* <div className="uppercase">
+                        {auth?.user?.name}
+                      </div> */}
+                        </Link>
+                  
+                    </li>
+                           
+                                   
           <li className="menu-item" >
           <div>
             <Link to="/cart" className='item  rounded-full w-full'>
@@ -88,36 +120,6 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
             </Link>
           </li>
           <li className="menu-item" >
-            <Link
-              onClick={handleLogout}
-              to="/login"
-              className='item  rounded-full w-full'
-            >
-              <div className="w-12 p-1 ">
-                <img src="/LogOut.svg" alt="logout" />
-              </div>
-            </Link>
-          </li>
-          
-          <li className="menu-item" >
-                    <Link
-                          to={`/dashboard/${
-                            auth?.user?.role === 1 ? "admin" : "user"
-                          }`}
-                          className='item flex'
-                        >
-                    <div className='item  rounded-full w-full mr-1'>
-                    <div className="w-10 ">
-                          <img src="/User.svg" alt="cart" />
-                        </div>
-                      </div>
-                      {/* <div className="uppercase">
-                        {auth?.user?.name}
-                      </div> */}
-                        </Link>
-                  
-                    </li>
-                    <li className="menu-item" >
                     <Menu>
             <MenuButton p={1}>
               <div className="item rounded-full w-full"><div className="w-10"><img src="/Notify.svg" alt="notify" /></div></div>
@@ -140,6 +142,20 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
               </MenuList>
           </Menu>
                     </li>
+          <li className="menu-item" >
+            <Link
+              onClick={handleLogout}
+              to="/login"
+              className='item  rounded-full w-full'
+            >
+              <div className="w-12 p-1 ">
+                <img src="/LogOut.svg" alt="logout" />
+              </div>
+            </Link>
+          </li>
+          
+
+
                           
                     
                     </ul>

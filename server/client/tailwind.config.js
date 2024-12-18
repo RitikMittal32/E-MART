@@ -5,7 +5,11 @@ module.exports = {
     "./public/index.html",         // Include the main HTML file
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'screen-minus-150': 'calc(100vh + 150px)',
+      },
+    },
   },
   plugins: [],
 }

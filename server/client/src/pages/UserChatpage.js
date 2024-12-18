@@ -15,9 +15,7 @@ const UserChatpage = () => {
   return (
     <Layout title={"Message"}>
       <Box className="container-fluid" p={0} mb={4} height="calc(100vh-150px)" mt="150px" display="flex">
-
-       
-
+     
           <Box 
             width="100%"  
             height="100%"

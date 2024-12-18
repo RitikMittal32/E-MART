@@ -51,8 +51,8 @@
 
 .radial-quarter-shadow {
   position: fixed;
-  top: -250px;
-  left: -250px;
+  top: -300px;
+  left: -300px;
   width: 0;
   height: 0;
   background: radial-gradient(
@@ -80,25 +80,25 @@
 }
 
 .circ-line.open{
-  width: 260px;
-  height: 260px;
+  width: 310px;
+  height: 310px;
 }
 
 .radial-quarter-shadow.open {
-  width: 500px; /* Fully expand to cover the viewport */
-  height: 500px; /* Fully expand to cover the viewport */
+  width: 600px; /* Fully expand to cover the viewport */
+  height: 600px; /* Fully expand to cover the viewport */
 }
 
         
         .menu-items.open{
-          height: 500px;
-          width: 500px;
+          height: 600px;
+          width: 600px;
         } 
 
         .menu-items {
           position: fixed;
-          top: -250px;
-          left: -250px;
+          top: -300px;
+          left: -300px;
           width: 0px;
           height: 0px;
           display: flex;
@@ -156,7 +156,7 @@
         }
         
         .menu-items.open .menu-it li:nth-child(1) {
-          transform: translate(180px, 60px) rotate(0deg); /* Position when clicked */
+          transform: translate(220px, 80px) rotate(0deg); /* Position when clicked */
         }
         
         .menu-it li:nth-child(2) {
@@ -164,7 +164,7 @@
         }
         
         .menu-items.open .menu-it li:nth-child(2) {
-          transform: translate(60px, 180px);
+          transform: translate(100px, 220px);
         }
         
         .menu-i li:nth-child(1) {
@@ -172,7 +172,7 @@
         }
         
         .menu-items.open .menu-i li:nth-child(1) {
-          transform: translate(190px, 40px) rotate(0deg); /* Position when clicked */
+          transform: translate(240px, 40px) rotate(0deg); /* Position when clicked */
         }
         
         .menu-i li:nth-child(2) {
@@ -180,7 +180,7 @@
         }
         
         .menu-items.open .menu-i li:nth-child(2) {
-          transform: translate(170px, 90px);
+          transform: translate(220px, 95px);
         }
         
         .menu-i li:nth-child(3) {
@@ -188,7 +188,7 @@
         }
         
         .menu-items.open .menu-i li:nth-child(3) {
-          transform: translate(140px, 140px);
+          transform: translate(190px, 155px);
         }
         
         .menu-i li:nth-child(4) {
@@ -196,7 +196,7 @@
         }
         
         .menu-items.open .menu-i li:nth-child(4) {
-          transform: translate(90px, 180px);
+          transform: translate(140px, 195px);
         }
         
         .menu-i li:nth-child(5) {
@@ -204,6 +204,10 @@
         }
         
         .menu-items.open .menu-i li:nth-child(5) {
-          transform: translate(35px, 200px);
+          transform: translate(90px, 220px);
+        }
+        
+        .menu-items.open .menu-i li:nth-child(6) {
+          transform: translate(35px, 240px);
         }
         
