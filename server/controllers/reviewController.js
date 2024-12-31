@@ -87,6 +87,12 @@ export const deleteReview = async (req, res) => {
     // Delete the review
     await review.remove();
 
+    const deletedThread = await MessageThread.findOneAndDelete({ review: reviewId });
+
+    if (!deletedThread) {
+      return res.status(404).json({ message: 'Message thread not found' });
+    }
+
     res.status(200).json({ message: 'Review deleted successfully.' });
   } catch (error) {
     console.error(error);

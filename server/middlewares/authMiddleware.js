@@ -4,18 +4,28 @@ import asyncHandler from "express-async-handler";
 
 //Protected Routes token base
 export const requireSignIn = async (req, res, next) => {
+  // console.log(req.headers.authorization);
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ){
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    // console.log("Extracted Token:", token);
     const decode = JWT.verify(
-      req.headers.authorization,
+      token,
       process.env.JWT_SECRET
     );
+    // console.log("Decoded Token:", decode);
     req.user = decode;
-    // console.log(req.user);
     next();
   } catch (error) {
     res.status(401);
-    throw new Error(`Not authorized, error`);
+    console.log(error);
+    throw new Error(`Not authorized, ${error}`);
   }
+}
+
 };
 
 //admin acceess

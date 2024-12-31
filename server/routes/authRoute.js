@@ -9,6 +9,7 @@ import {
   getAllOrdersController,
   orderStatusController,
 } from "../controllers/authController.js";
+import { getProfile, protectedRoute , logOut} from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
 //router object
@@ -52,5 +53,15 @@ router.put(
   isAdmin,
   orderStatusController
 );
+
+//token-cookie
+router.get("/protected-route", protectedRoute);
+
+//profile-cookie
+router.get("/profile", getProfile);
+
+//delete-cookie
+router.get("/logOut", logOut);
+
 
 export default router;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../config/axiosConfig.js";
 import { ChatState } from "../../context/ChatProvider.js";
 import { io } from 'socket.io-client';
+import { useAuth } from "../../context/auth.js";
 import { Box, Text, Button } from "@chakra-ui/react";
 
 const ReviewComponent = ({ productId , product }) => {
@@ -13,7 +14,8 @@ const ReviewComponent = ({ productId , product }) => {
   const [comment, setComment] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateReviewId, setUpdateReviewId] = useState(null);
-  const { user, socket} = ChatState(); 
+  const {socket} = ChatState(); 
+  const [user, setUser] = useAuth();
 
   // useEffect(() => {
   //   const newSocket = io("http://localhost:4300", {
@@ -54,7 +56,7 @@ const ReviewComponent = ({ productId , product }) => {
 
     // Emit the new review as a message
     socket.emit('new message', messageData);
-
+    
     // Reset the input fields
     setRating(0);
     setComment('');
@@ -127,7 +129,7 @@ const ReviewComponent = ({ productId , product }) => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-blue font-bold py-2 px-4 rounded-lg hover:bg-blue-600"
+                className="w-full bg-blue font-bold py-2 px-4 rounded-lg bg-blue-600"
               >
                 {isUpdating ? "Update Review" : "Submit Review"}
               </button>
@@ -175,7 +177,7 @@ const ReviewComponent = ({ productId , product }) => {
             </div>
             <div>
           
-              <Button
+              {/* <Button
                 onClick={() => handleUpdateClick(review)}
                 bg="green.500"
                 color="white"
@@ -185,7 +187,7 @@ const ReviewComponent = ({ productId , product }) => {
                 _hover={{ bg: "green.600" }}
               >
                 Update
-              </Button>
+              </Button> */}
               <Button
                 onClick={() => deleteReview(review._id)}
                 bg="red.500"

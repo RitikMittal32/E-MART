@@ -16,7 +16,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main style={{ flex: "1", minHeight:"100vh", display: "flex",  justifyContent: "center" , alignItems : "center"}}>
+      <main style={{ flex: "1", minHeight:"100vh", display: "flex",  justifyContent: "center" , alignItems : "center", overflowX: "hidden"}}>
           
           <Toaster />
           {children} 

@@ -1,74 +1,60 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client"; // Make sure to import io from socket.io-client
+import { io } from "socket.io-client"; // Import io from socket.io-client
 import { BACKEND_URL } from "../config/axiosConfig";
+import { useAuth } from "./auth";
+
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
-  const [user, setUser] = useState();
+  const [user] = useAuth(); // Access the user directly
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState();
-  const [socket, setSocket] = useState(null); // Add state for socket
-
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("auth"));
-  
-    // Initialize the socket connection only if userInfo is available
-    if (userInfo && userInfo.user) {
-      setUser(userInfo);
-  
+    if (user?.user?._id) {
+      // Initialize socket when user data is available
       const newSocket = io(`${BACKEND_URL}`, {
-        transports: ["websocket", "polling"], // Optional: to force WebSocket transport
+        transports: ["websocket", "polling"],
       });
       setSocket(newSocket);
-      
-  
-  
-      newSocket.on('connect', () => {
 
-        // Ensure userInfo.user._id is defined
-        if (userInfo.user._id) {
-          if(userInfo.user._id === "6595132ddd5e54715069ab59"){
-            newSocket.emit('admin setup');
-          }
-          newSocket.emit('setup', userInfo.user._id); // Emit user ID as a string
-        } else {
-          console.error("User ID is undefined");
+      newSocket.on("connect", () => {
+        console.log("Connected to server");
+        
+        // Emit user ID to set up the user connection on the server
+        if (user.user._id === "6595132ddd5e54715069ab59") {
+          newSocket.emit("admin setup");
         }
+        newSocket.emit("setup", user.user._id);
+      });
 
-    
+      newSocket.on("connected", () => {
+        console.log("Successfully joined room");
       });
-      
-      newSocket.on('connected', () => {
-        console.log('Successfully joined room');
-      });
-  
-      // Clean up the socket connection on unmount
+
+      // Cleanup socket connection when component unmounts or when user data changes
       return () => {
-        newSocket.disconnect(); // Uncomment to disconnect when the component unmounts
+        if (newSocket) {
+          newSocket.disconnect();
+        }
       };
     } else {
       console.error("User information is not available");
     }
-  
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
+  }, [user]); // Dependency on `user` to reset the socket connection when user changes
 
   return (
     <ChatContext.Provider
       value={{
         selectedChat,
         setSelectedChat,
-        user,
-        setUser,
         notification,
         setNotification,
-        chats,
-        setChats,
         socket, // Provide socket to the context
+        chats, // Provide chat data if needed
+        setChats, // Provide setter function for chats
       }}
     >
       {children}
@@ -76,6 +62,4 @@ export const ChatProvider = ({ children }) => {
   );
 };
 
-export const ChatState = () => {
-  return useContext(ChatContext);
-};
+export const ChatState = () => useContext(ChatContext);

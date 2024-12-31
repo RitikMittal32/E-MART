@@ -29,16 +29,18 @@
           text-align: center;
           color: #fff;
           z-index: 2; /* Bring content above the overlay */
+          width: 80%;
+          margin:auto;
       }
       
-      .search-bar {
-          margin-top: 20px;
-          padding: 10px;
-          background-color: rgba(255, 255, 255, 0.8); /* Focus light background on search bar */
+      .search{
           border-radius: 10px;
           display: inline-block;
           box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Box shadow for focus effect */
+          width: 80%;
+          margin: auto;
       }
+
       
       .shop-now-btn {
           padding: 10px 20px;

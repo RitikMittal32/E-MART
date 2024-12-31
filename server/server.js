@@ -19,14 +19,15 @@ import productModel from "./models/productModel.js";
 import http from 'http';
 import messageRoutes from "./routes/messageRoutes.js";
 import userModel from "./models/userModel.js";
+import MongoStore from "connect-mongo";
+import cookieParser from 'cookie-parser';
 import session from "express-session";
-// Define __filename and __dirname
+// Define __filename and __dirnam
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configure env
 dotenv.config();
-
 
 // Database config
 connectDB();
@@ -34,12 +35,47 @@ connectDB();
 // Rest object
 const app = express();
 
-// Middlewares
+// Session management
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "Key that will Sign cookie",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL, // MongoDB connection string
+      ttl: 14 * 24 * 60 * 60, // 14 days expiration in seconds
+    }),
+    cookie: {
+      maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days in milliseconds
+      httpOnly: true, // Secure against XSS attacks
+      secure: process.env.NODE_ENV === "production", // HTTPS in production
+    },
+  })
+);
+
+// Midlewares
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
 // Routes
+app.get('/protected-route', (req, res) => {
+  const token = req.cookies.token; // Retrieve the token from cookies
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+  res.send({ message: "Access granted", token });
+});
+
+app.get('/profile', (req, res) => {
+  const userCookie = req.cookies.user;
+  if (!userCookie) {
+    return res.status(401).send({ message: "User not logged in" });
+  }
+  const user = JSON.parse(userCookie); // Deserialize user data
+  res.send({ success: true, user });
+});
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
@@ -55,6 +91,7 @@ app.get("*", (req,res) =>
   res.sendFile(path.join(__dirname,"./client/build/index.html"))
 );
 app.get("/", (req, res) => {
+  req.session.isAuth = true;
   res.send("<h1>Welcome to ecommerce app</h1>");
 });
 
@@ -72,7 +109,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   pingTimeout: 60000, // Set ping timeout for connections
   cors: {
-    origin: "https://e-mart-1.onrender.com", // Your frontend URL
+   // origin: "https://e-mart-1.onrender.com", // Your frontend URL
+    origin: "*",
     methods: ["GET", "POST"], 
   },
 });

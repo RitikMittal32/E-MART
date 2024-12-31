@@ -3,7 +3,7 @@
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          max-width: 500px; /* Set a maximum width for a balanced layout */
+         /* Set a maximum width for a balanced layout */
         /* Center the input on the page */
           border-radius: 25px;
           overflow: hidden; /* To keep the search button attached */

@@ -2,27 +2,22 @@ import React, { useRef } from "react";
 import {  Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
-import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
 import './Header.css';
-import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect,useState } from "react";
-import Hamburger from "./Hamburger";
 import { getSender } from "../../config/ChatLogics";
 import { ChatState } from "../../context/ChatProvider";
+import axios from '../../config/axiosConfig.js';
 import CHamburger from "./CHamburger";
 import {
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from "@chakra-ui/menu";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
-// import { InfoOutlineIcon } from "@chakra-ui/icons";
-import { EmailIcon } from "@chakra-ui/icons";
+
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -34,8 +29,6 @@ const Header = () => {
     user,
     notification,
     setNotification,
-    chats,
-    setChats
   } = ChatState();
 
 
@@ -45,15 +38,20 @@ const Header = () => {
                       setCheck(false);
             }
   },[])
-  const handleLogout = () => {
-    setAuth({
-      ...auth,
-      user: null,
-      token: "",
-    });
-    localStorage.removeItem("auth");
-    // localStorage.removeItem("userInfo");
-    localStorage.removeItem("chats");
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get("/api/v1/auth/logOut", { withCredentials: true });
+      // console.log(response.data.message); 
+      // Redirect or update the state as needed
+      setAuth({
+        ...auth,
+        user: null,
+        token: "",
+      });
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+    delete axios.defaults.headers.common["Authorization"];
     toast.success("Logout Successfully");
   };
 
@@ -64,7 +62,6 @@ const Header = () => {
     // console.log('k');
   }
 
-  let lastScrollTop = 0; // Variable to store last scroll position
 
   useEffect(() => {
     let lastScrollTop = 0; // Variable to store last scroll position
@@ -154,7 +151,7 @@ const Header = () => {
                     <li>
                     <Menu>
             <MenuButton p={1}>
-              <div className="bg-white rounded-full w-10"><img src="/Notify.svg" alt="notify" /></div>
+              <div className="bg-white rounded-full w-10 text-black"><img src="/Notify.svg" alt="notify" /></div>
             </MenuButton>
             <MenuList pl={2}>
                 {!notification.length && "No New Messages"}
@@ -222,7 +219,7 @@ const Header = () => {
                 </Link>
               </li>
                   {categories?.map((c) => (
-                    <li>
+                    <li key={c.slug}>
                       <Link
                         className="item"
                         to={`/category/${c.slug}`}

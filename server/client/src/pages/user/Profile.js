@@ -38,11 +38,7 @@ const Profile = () => {
       if (data?.errro) {
         toast.error(data?.error);
       } else {
-        setAuth({ ...auth, user: data?.updatedUser });
-        let ls = localStorage.getItem("auth");
-        ls = JSON.parse(ls);
-        ls.user = data.updatedUser;
-        localStorage.setItem("auth", JSON.stringify(ls));
+        setAuth({ ...auth, user: data?.updatedUser, token: auth.token });
         toast.success("Profile Updated Successfully");
       }
     } catch (error) {

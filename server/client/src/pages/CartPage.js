@@ -105,7 +105,7 @@ const CartPage = () => {
   return (
     <Layout>
     {/* <div style={{display: "flex", justifyContent: "center" , alignItems : "center", height : "100vh"}}> */}
-      <div className=" cart-page container-fluid" style={{marginTop :"130px"}}>
+      <div className=" cart-page container-fluid" style={{marginTop :"130px", marginBottom:"10px"}}>
         <div className="row">
           <div className="col-md-12">
             <h1 className="text-center bg-light p-2 mb-1">
@@ -122,11 +122,17 @@ const CartPage = () => {
             </h1>
           </div>
         </div>
-        <div className="container">
+        <div className="" >
   <div className="row">
-    <div className="col-md-7 p-0 m-0">
+    <div className="col-md-7 m-0 p-0 overflow-x-hidden custom-scrollbar"
+            style={{
+              height: "100vh",
+              overflowY: "auto",
+              display: "flex",  
+              flexDirection: "column",
+            }}>
       {cart?.map((p) => (
-        <div className="row flex-row align-items-center my-3" key={p._id}>
+        <div className="row flex-row align-items-center my-3 border-4 border-gray-400 m-3 p-3 rounded-[12px]" key={p._id}>
           <div className="col-md-4">
             <img
               src={`https://e-mart-1.onrender.com/api/v1/product/product-photo/${p._id}`}

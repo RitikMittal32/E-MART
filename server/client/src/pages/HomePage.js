@@ -32,7 +32,7 @@ const HomePage = () => {
     }, 5000); // Change the interval time as desired
 
     return () => clearInterval(interval);
-  }, [currentPageIndex, sliderImage.length]);
+  }, [currentPageIndex]);
 
   //get all cat
   const getAllCategory = async () => {
@@ -157,17 +157,17 @@ const HomePage = () => {
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, [Icons.length]);
 
-  const handlePrev = () => {
-    setCurrent((prevIndex) =>
-      prevIndex === 0 ? Icons.length - 1 : prevIndex - 1
-    );
-  };
+  // const handlePrev = () => {
+  //   setCurrent((prevIndex) =>
+  //     prevIndex === 0 ? Icons.length - 1 : prevIndex - 1
+  //   );
+  // };
 
-  const handleNext = () => {
-    setCurrent((prevIndex) =>
-      prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  // const handleNext = () => {
+  //   setCurrent((prevIndex) =>
+  //     prevIndex === Icons.length - 1 ? 0 : prevIndex + 1
+  //   );
+  // };
 
   return (
     <Layout title={"ALL Products - Best offers "}>
@@ -224,7 +224,7 @@ const HomePage = () => {
           <div className="w-full product">
             {products?.map((p) => (
               <div className="mt-4" key={p._id}>
-                <button
+                <div
                       className="btns btn-info ms-1"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
@@ -280,7 +280,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 </div>
-                </button>
+                </div>
               </div>
             ))}
             

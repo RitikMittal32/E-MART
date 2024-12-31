@@ -10,26 +10,16 @@ import { ChatState } from "../context/ChatProvider";
 import { useAuth } from "../context/auth";
 
 export const MyChats = () => {
-  const [loggedUser, setLoggedUser] = useState();
+
   const [loadingChats, setLoadingChats] = useState(true); // State to manage loading
   const { selectedChat, setSelectedChat } = ChatState(); // Initialize chats as an empty array
   const toast = useToast();
-  const [user, setUser] = useAuth();
   const [chats, setChats] = useState();
-  const fetchChats = async () => {
+  const fetchChats = async (p) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const res = await axios.get("/api/v1/users", config);
+      const res = await axios.get("/api/v1/users");
       if(res && res.data.success){
-        // console.log('haanji');
-        // console.log(res.data.data);
           setChats(res.data.data);
-          localStorage.setItem("chats", JSON.stringify(res.data)); 
       }
     
       setLoadingChats(false); // Set loading to false after fetching chats
@@ -47,15 +37,7 @@ export const MyChats = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("auth"));
-    setLoggedUser(user); 
-    const savedChats = JSON.parse(localStorage.getItem("chats")); 
-    if (savedChats && savedChats.success){
-      setChats(savedChats.data);
-      setLoadingChats(false);
-    }else{
       fetchChats(); 
-    }
   },[]);
 
   return (

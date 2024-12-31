@@ -2,25 +2,24 @@
 import "./Carousel.css";
 import { useState } from "react";
 import Slider from "react-slick";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 
 export const Carousel = ({Icons}) => {
-  const NextArrow = ({ onClick }) => {
-    return (
-      <div className="arrow next" onClick={onClick}>
-        <FaArrowRight />
-      </div>
-    );
-  };
+  // const NextArrow = ({ onClick }) => {
+  //   return (
+  //     <div className="arrow next" onClick={onClick}>
+  //       <FaArrowRight />
+  //     </div>
+  //   );
+  // };
 
-  const PrevArrow = ({ onClick }) => {
-    return (
-      <div className="arrow prev" onClick={onClick}>
-        <FaArrowLeft />
-      </div>
-    );
-  };
+  // const PrevArrow = ({ onClick }) => {
+  //   return (
+  //     <div className="arrow prev" onClick={onClick}>
+  //       <FaArrowLeft />
+  //     </div>
+  //   );
+  // };
 
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -59,7 +58,7 @@ export const Carousel = ({Icons}) => {
     <div>
       <Slider {...settings}>
         {Icons.map((img, idx) => (
-          <div className={idx === imageIndex ? "slide activeSlide" : "slide"}>
+          <div key={idx} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
             <img src={img.imgs} alt={img} />
           </div>
         ))}
