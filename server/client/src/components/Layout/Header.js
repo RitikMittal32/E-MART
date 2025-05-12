@@ -137,7 +137,7 @@ const Header = () => {
                     </li>
                     <li> 
                       <Link 
-                  to={auth?.user?.role === 1 ? "/admin-chat" : "/user-chat"} 
+                  to={auth?.user?.role === 1 ? "/chat/admin-chat" : "/chat/user-chat"} 
                   className="bg-white rounded-full w-full" 
       
                 >

@@ -111,7 +111,7 @@ const CHamburger = ({ handleClick, handleLogout, auth, categories, cart }) => {
           </li>
           <li className="menu-item" >
             <Link 
-              to={auth?.user?.role === 1 ? "/admin-chat" : "/user-chat"} 
+              to={auth?.user?.role === 1 ? "/chat/admin-chat" : "/chat/user-chat"} 
               className="item  rounded-full w-full"
             >
               <div className="w-10 p-1">

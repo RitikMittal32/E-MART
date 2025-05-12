@@ -1,12 +1,12 @@
 {
-  "name": "Ecommerce-app-2023",
+  "name": "Ecommerce-app-2024",
   "version": "1.0.0",
   "description": "ecommerce rest api",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "build": "npm install --prefix ./client && npm run build --prefix ./client && npm install",
     "client": "npm start --prefix ./client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
